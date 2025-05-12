@@ -15,6 +15,25 @@ def run_visualisation(sort_type):
     screen_width, screen_height = 600, 600 
     tower_width = 2
 
+    # Rainbow colors for the towers
+    rainbow_colors = [
+        (255, 0, 0),    # Red
+        (255, 127, 0),  # Orange
+        (255, 255, 0),  # Yellow
+        (0, 255, 0),    # Green
+        (0, 0, 255),    # Blue
+        (75, 0, 130),   # Indigo
+        (148, 0, 211)   # Violet
+    ]
+    
+    # Function to get color based on tower position in sorted array
+    def get_tower_color(index, total_towers):
+        # Map the position to a color in the rainbow
+        position = index / total_towers
+        # Calculate which color in the rainbow array
+        color_index = int(position * (len(rainbow_colors) - 1))
+        return rainbow_colors[color_index]
+
     # flags + counters for the sorting process 
     sorting = False
     finished = False 
@@ -49,6 +68,9 @@ def run_visualisation(sort_type):
     for i in range(num_of_towers): 
         towers.append((i+1)*tower_width) #nice sorted array of tower heights
     towers = random.sample(towers, num_of_towers) #shuffles the tower heights array
+
+    # Get the maximum tower height for color mapping
+    max_tower_height = max(towers)
 
 
 
@@ -144,8 +166,8 @@ def run_visualisation(sort_type):
                         swapped = False  # reset for the next pass
 
 
-        if finished: #DRAWING A GREEN BAR ONCE PER LOOP
-            pygame.draw.rect(screen, (0,255,0), (finishedindex*2, screen_height-finishedindex*2, 2, finishedindex*2))
+        if finished: #DRAWING A WHITE BAR ONCE PER LOOP
+            pygame.draw.rect(screen, (255,255,255), (finishedindex*2, screen_height-finishedindex*2, 2, finishedindex*2))
             finishedindex += 1
             
             # Draw "Sort Again" button when sorting is finished
@@ -157,10 +179,22 @@ def run_visualisation(sort_type):
             text_rect = text_surface.get_rect(center=button_rect.center)
             screen.blit(text_surface, text_rect)
 
-        else: #draw black bars on the white screen, representing tower heights
-            screen.fill((255,255,255)) # white screen 
-            for i in range(len(towers)): #
-                pygame.draw.rect(screen, (0,0,0), (i*tower_width, 0, tower_width, screen_height-towers[i]))
+        else: #draw colored bars on black background
+            screen.fill((0, 0, 0)) # black background
+            for i in range(len(towers)):
+                # The tower height determines the height of the bar
+                height = towers[i]
+                
+                # Get the position this tower would have in a sorted array
+                sorted_position = sorted(towers).index(height)
+                while sorted_position < len(towers) - 1 and sorted(towers)[sorted_position+1] == height:
+                    sorted_position += 1
+                    
+                # Get color based on the tower's position in a sorted array
+                tower_color = get_tower_color(sorted_position, len(towers) - 1)
+                
+                # Draw the colored tower
+                pygame.draw.rect(screen, tower_color, (i*tower_width, screen_height-height, tower_width, height))
 
         pygame.display.flip() #refresh the screen 
         pygame.time.Clock().tick(100) # sets the fps of the animation to 100 

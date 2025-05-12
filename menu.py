@@ -12,6 +12,19 @@ def show_menu(screen):
     BLACK = (0, 0, 0)
 
     clock = pygame.time.Clock()
+    
+    # Rainbow colors
+    rainbow_colors = [
+        (255, 0, 0),    # Red
+        (255, 127, 0),  # Orange
+        (255, 255, 0),  # Yellow
+        (0, 255, 0),    # Green
+        (0, 0, 255),    # Blue
+        (75, 0, 130),   # Indigo
+        (148, 0, 211)   # Violet
+    ]
+    
+    # Remove the rainbow_shift variable since we don't need animation
 
     button_texts = [
         "Bubble Sort",
@@ -42,8 +55,23 @@ def show_menu(screen):
     while True:
         screen.fill(BLACK)
 
-        # Draw title
-        title_surface = font.render("Pygame Sorting Visualiser", True, WHITE)
+        # Draw rainbow title
+        title_text = "Pygame Sorting Visualiser"
+        title_width = font.size(title_text)[0]
+        
+        # Create a surface for the title
+        title_surface = pygame.Surface((title_width, font.get_height()), pygame.SRCALPHA)
+        
+        # Draw each character with a color from the rainbow
+        x_offset = 0
+        for i, char in enumerate(title_text):
+            # Calculate which color to use based on position in text
+            color_idx = int(i * len(rainbow_colors) / len(title_text))
+            char_surf = font.render(char, True, rainbow_colors[color_idx])
+            title_surface.blit(char_surf, (x_offset, 0))
+            x_offset += font.size(char)[0]
+        
+        # Draw the title
         title_rect = title_surface.get_rect(center=(screen_width // 2, 100))
         screen.blit(title_surface, title_rect)
 
