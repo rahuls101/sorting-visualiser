@@ -16,7 +16,8 @@ def show_menu(screen):
     button_texts = [
         "Bubble Sort",
         "Insertion Sort",
-        "Selection Sort"
+        "Selection Sort",
+        "Comb Sort"
     ]
 
     # compute the width of the widest button label
