@@ -29,9 +29,12 @@ def run_visualisation(sort_type):
     # Function to get color based on tower position in sorted array
     def get_tower_color(index, total_towers):
         # Map the position to a color in the rainbow
+        # Use total_towers instead of total_towers-1 to ensure full range
         position = index / total_towers
+        
         # Calculate which color in the rainbow array
-        color_index = int(position * (len(rainbow_colors) - 1))
+        # Adjust to ensure we use the full color range including the last color
+        color_index = min(int(position * len(rainbow_colors)), len(rainbow_colors) - 1)
         return rainbow_colors[color_index]
 
     # flags + counters for the sorting process 
@@ -191,7 +194,8 @@ def run_visualisation(sort_type):
                     sorted_position += 1
                     
                 # Get color based on the tower's position in a sorted array
-                tower_color = get_tower_color(sorted_position, len(towers) - 1)
+                # Use len(towers) instead of len(towers)-1 for better distribution
+                tower_color = get_tower_color(sorted_position, len(towers))
                 
                 # Draw the colored tower
                 pygame.draw.rect(screen, tower_color, (i*tower_width, screen_height-height, tower_width, height))
