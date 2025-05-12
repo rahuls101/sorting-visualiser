@@ -3,8 +3,9 @@ import sys
 
 
 def show_menu(screen):
-    font = pygame.font.Font("assets/pixel_font.ttf", 48)
-    small_font = pygame.font.Font("assets/pixel_font.ttf", 32)
+    font = pygame.font.Font("assets/pixel_font.ttf", 70)
+    credit_font = pygame.font.Font("assets/pixel_font.ttf", 55)
+    small_font = pygame.font.Font("assets/pixel_font.ttf", 40)
 
     WHITE = (255, 255, 255)
     GRAY = (100, 100, 100)
@@ -27,7 +28,7 @@ def show_menu(screen):
 
     # center buttons horizontally
     screen_width = screen.get_width()
-    start_y = 250
+    start_y = 275
     spacing = 20
 
     buttons = []
@@ -41,9 +42,14 @@ def show_menu(screen):
         screen.fill(BLACK)
 
         # Draw title
-        title_surface = font.render("Sorting Visualiser", True, WHITE)
+        title_surface = font.render("Pygame Sorting Visualiser", True, WHITE)
         title_rect = title_surface.get_rect(center=(screen_width // 2, 100))
         screen.blit(title_surface, title_rect)
+
+        # Draw credits
+        credit_surface = credit_font.render("Created by Rahul S", True, WHITE)
+        credit_rect = credit_surface.get_rect(center=(screen_width // 2, 175))
+        screen.blit(credit_surface, credit_rect)
 
         mouse_pos = pygame.mouse.get_pos()
         click = False

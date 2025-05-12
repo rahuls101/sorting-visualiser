@@ -9,7 +9,7 @@ if __name__ == "__main__":
     
     while running:
         screen = pygame.display.set_mode((800, 600))
-        pygame.display.set_caption("Sorting Visualiser")
+        pygame.display.set_caption("Pygame Sorting Visualiser")
 
         selected_sort = show_menu(screen)
 
