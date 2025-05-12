@@ -19,6 +19,12 @@ def run_visualisation(sort_type):
     sorting = False
     finished = False 
     sortingindex, finishedindex = 0, 0 
+
+    #specifically for comb sort: 
+    gap = screen_width // tower_width #starting gap is size of the list
+    shrink_factor = 1.3 #used in comb sort
+    swapped = False #to track if any swaps were made
+    pass_counter = 0 
     
     # Add delay timer
     start_time = pygame.time.get_ticks()
@@ -74,17 +80,17 @@ def run_visualisation(sort_type):
             sorting = True
 
         if sorting: #SORTING LOGIC 
-            if towers == sorted(towers): #if towers are sorted, we have sorted successfully
+            if towers == sorted(towers): #if towers are sorted, we have sorted successfully. 
                 sorting = False 
                 finished = True
 
-            if sort_type == 'bubble': #performing one pass of a bubble sort on the towers array. will be modularised later
+            if sort_type == 'bubble': #performing one pass of a bubble sort on the towers array.
                 for j in range(len(towers) - 1):
                     if towers[j] > towers[j + 1]: 
                         towers[j], towers[j + 1] = towers[j + 1], towers[j]
 
 
-            elif sort_type == 'insertion': #performing one pass of an insertion sort on the towers array. will be modularised later
+            elif sort_type == 'insertion': #performing one pass of an insertion sort on the towers array.
                 if sortingindex < len(towers):
                     key = towers[sortingindex]
                     j = sortingindex - 1
@@ -95,7 +101,7 @@ def run_visualisation(sort_type):
                     sortingindex += 1
 
 
-            elif sort_type == 'selection': #performing one pass of an insertion sort on the towers array. this will be modularised later
+            elif sort_type == 'selection': #performing one pass of an insertion sort on the towers array. 
                 if sortingindex < len(towers):
                     min_index = sortingindex
                     for j in range(sortingindex + 1, len(towers)):
@@ -103,6 +109,39 @@ def run_visualisation(sort_type):
                             min_index = j
                     towers[sortingindex], towers[min_index] = towers[min_index], towers[sortingindex]
                     sortingindex += 1
+
+            elif sort_type == 'comb': #performing a certain number of passes of a comb sort on the towers array. this is complicated
+                if gap > 1:
+                    gap = int(gap / shrink_factor)
+                else:
+                    gap = 1  # gap shouldn't go below 1
+
+                '''
+                the nature of comb sort means that it is quick towards the beginning, yet slow towards the end. however, the 
+                visual process of this nature is not very visually appealing. therefore, we will implement a 'speed up' system, 
+                where the number of operations performed per frame increases exponentially, creating a more visually appealing effect
+                but still allowing viewers to see the beginning, more chaotic, nature of the sort.
+                '''
+
+                operations_per_frame = int(5 * (1.25 ** pass_counter)) 
+                pass_counter += 0.02
+
+                count = 0
+                while sortingindex < len(towers) - gap and count < operations_per_frame:
+                    if towers[sortingindex] > towers[sortingindex + gap]:
+                        towers[sortingindex], towers[sortingindex + gap] = towers[sortingindex + gap], towers[sortingindex]
+                        swapped = True
+                    sortingindex += 1
+                    count += 1
+
+                # Once a full pass with the current gap is done, reset the gap and pass counter. 
+                if sortingindex >= len(towers) - gap:
+                    if gap == 1 and not swapped:
+                        sorting = False
+                        finished = True
+                    else:
+                        sortingindex = 0
+                        swapped = False  # reset for the next pass
 
 
         if finished: #DRAWING A GREEN BAR ONCE PER LOOP
@@ -124,6 +163,6 @@ def run_visualisation(sort_type):
                 pygame.draw.rect(screen, (0,0,0), (i*tower_width, 0, tower_width, screen_height-towers[i]))
 
         pygame.display.flip() #refresh the screen 
-        pygame.time.Clock().tick(100) # sets the fps of the animation to 100 or else
+        pygame.time.Clock().tick(100) # sets the fps of the animation to 100 
         
 
