@@ -1,11 +1,10 @@
 import pygame
 import sys
 
-FONT_PATH = "assets/pixel_font.ttf"
 
 def show_menu(screen):
-    font = pygame.font.Font(FONT_PATH, 48)
-    small_font = pygame.font.Font(FONT_PATH, 32)
+    font = pygame.font.Font("assets/pixel_font.ttf", 48)
+    small_font = pygame.font.Font("assets/pixel_font.ttf", 32)
 
     WHITE = (255, 255, 255)
     GRAY = (100, 100, 100)
