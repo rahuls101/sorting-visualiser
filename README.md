@@ -8,20 +8,18 @@ Sorting algorithms sound like the most complex thing in the world when you have 
 
 ## Features 
 
-- Visualises three sorting algorithms: 
+- Visualises four sorting algorithms: 
     - bubble sort 
     - insertion sort
     - selection sort 
+    - comb sort
 - Real time animation using Pygame 
-- Instructions and active sort name displayed on screen 
-- Simple codebase 
+
 
 ## Controls 
 
 - 'UP' arrow: Randomise the array
-- 'I' - Start insertion sort 
-- 'B' - Start bubble sort 
-- 'S' - Start selection sort 
+- 'Sort Again' button to run sort of choice again
 
 You can watch the bars rearrange in real time according to the algorithm you select. 
 
