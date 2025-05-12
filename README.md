@@ -1,4 +1,4 @@
-# Sorting Visualiser - By Rahul 
+# Sorting Visualiser - By Rahul S
 
 This is a real-time visualisation tool for popular sorting algorithms built using Python and Pygame. It was created as a personal project to understand how different sorting techniques work step-by-step, practice structuring larger codebases, using version control with Git, and working with graphical libraries. 
 
@@ -23,14 +23,6 @@ Sorting algorithms sound like the most complex thing in the world when you have 
 
 You can watch the bars rearrange in real time according to the algorithm you select. 
 
-## Preview 
-
-## Requirements 
-
-- Python 3.10+ 
-- 'pygame' library 
-
-Install pygame using pip if needed
 
 
 

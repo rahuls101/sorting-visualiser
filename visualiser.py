@@ -95,7 +95,7 @@ def run_visualisation(sort_type):
                     start_time = current_time
             
             # Check for button click when sorting is finished
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and finished:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and finished: #they want to sort again
                 if button_rect.collidepoint(mouse_pos):
                     return True  # Return to main menu
 
@@ -169,7 +169,7 @@ def run_visualisation(sort_type):
                         swapped = False  # reset for the next pass
 
 
-        if finished: #DRAWING A WHITE BAR ONCE PER LOOP
+        if finished: #DRAWING A WHITE BAR ONCE PER LOOP, ends up drawing half the screen like a triangle in white
             pygame.draw.rect(screen, (255,255,255), (finishedindex*2, screen_height-finishedindex*2, 2, finishedindex*2))
             finishedindex += 1
             

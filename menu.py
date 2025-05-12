@@ -23,8 +23,6 @@ def show_menu(screen):
         (75, 0, 130),   # Indigo
         (148, 0, 211)   # Violet
     ]
-    
-    # Remove the rainbow_shift variable since we don't need animation
 
     button_texts = [
         "Bubble Sort",
@@ -75,8 +73,8 @@ def show_menu(screen):
         title_rect = title_surface.get_rect(center=(screen_width // 2, 100))
         screen.blit(title_surface, title_rect)
 
-        # Draw credits
-        credit_surface = credit_font.render("Created by Rahul S", True, WHITE)
+        # Draw credits to me :)
+        credit_surface = credit_font.render("Created by rahuls101", True, WHITE)
         credit_rect = credit_surface.get_rect(center=(screen_width // 2, 175))
         screen.blit(credit_surface, credit_rect)
 
@@ -98,7 +96,7 @@ def show_menu(screen):
             screen.blit(label, label_rect)
 
             if click and rect.collidepoint(mouse_pos):
-                return text.lower().split()[0]  # returns 'bubble', 'insertion', or 'selection'
+                return text.lower().split()[0]  # returns 'bubble', 'insertion', 'selection', or 'comb'
 
         pygame.display.flip()
         clock.tick(60)
