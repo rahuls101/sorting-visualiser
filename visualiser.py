@@ -1,10 +1,11 @@
-import sys, random, pygame, math, time
+import os, sys, random, pygame, math, time
 from pygame.locals import *  #provides QUIT, KEYDOWN, etc. 
 
 
 def run_visualisation(sort_type):
     # Add font for the button
-    font = pygame.font.Font("assets/pixel_font.ttf", 36)  
+    current_dir = os.path.dirname(__file__)
+    font = pygame.font.Font(os.path.join(current_dir, "assets", "pixel_font.ttf"), 36)  
     
     
     #initialise pygame and set the window caption
